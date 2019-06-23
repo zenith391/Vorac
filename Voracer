@@ -1,0 +1,13 @@
+{
+    "source": {
+        "directory": "src",
+        "entry": "vorac.v"
+    },
+    "binaries": {
+        "target": "bin"
+    },
+    "environment": {
+        "version": ["0.0.12", "0.0.12"],
+        "compiler": "vc"
+    }
+}
