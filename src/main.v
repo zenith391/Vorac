@@ -1,53 +1,56 @@
 import os
+import json
+
+struct BuildFileSource {
+    directory string
+    entry string
+}
+
+struct BuildFileBinaries {
+    target string
+    output string
+}
+
+struct BuildFileEnvironment {
+    version []string
+    compiler string
+}
 
 struct BuildFile {
-    mut:
-        // Source
-        source_directory string
-        entry_point string
-        
-        // Binaries
-        target string
-        output string
-        
-        // Environment
-        minimum_version string
-        maximum_version string
-        compiler string
+    // Source
+    source BuildFileSource
+    binaries BuildFileBinaries
+    environment BuildFileEnvironment
 }
 
 fn read_build_file() BuildFile {
-    mut build := BuildFile{}
-    // TODO: Actually read the JSON
-    build.source_directory = 'src'
-    build.entry_point = 'main.v'
-    build.target = 'bin'
-    build.output = 'vorac'
-    build.minimum_version = '0.0.0.0'
-    build.maximum_version = '9.9.9.9'
-    build.compiler = 'vc'
+    s := os.read_file('Voracer')
+    mut build := json.decode(BuildFile, s) or {
+        eprintln('[ERROR] Could not parse JSON')
+        exit(1)
+        return BuildFile{}
+    }
     return build
 }
 
 fn main() {
     if !os.file_exists('Voracer') {
-        println('[ERROR] Could not find \'Voracer\'')
+        eprintln('[ERROR] Could not find \'Voracer\'')
         exit(1)
     }
-    println('[VORAC/0] Parsing \'Voracer\'')
+    println('[VORAC] Parsing \'Voracer\'')
     mut build := read_build_file()
-    println('[VORAC] Building \'' + build.source_directory + '\'..')
-    println('        Compiler: ' + build.compiler)
+    println('[VORAC] Building \'' + build.source.directory + '\'..')
+    println('        Compiler: ' + build.environment.compiler)
     
-    if build.compiler == 'vc' {
-        println('[VORAC] Building ' + build.entry_point + '..')
-        cmd := 'v -o ' + build.target + '/' + build.output + ' ' + build.source_directory + '/' + build.entry_point
+    if build.environment.compiler == 'vc' {
+        println('[VORAC] Building ' + build.source.entry + '..')
+        cmd := 'v -o ' + build.binaries.target + '/' + build.binaries.output + ' ' + build.source.directory + '/' + build.source.entry
         println(cmd)
         out := os.system(cmd)
-        print(out)
-        //binName := build.entry_point.substr(0, build.entry_point.)
-        //bin_content = os.read_file(build.source_directory + '/' + build.entry_point)
+        println(out)
     } else {
-        println('[ERROR] Unknown compiler ' + build.compiler)
+        eprintln('[ERROR] Unknown compiler ' + build.environment.compiler)
+        exit(1)
     }
 }
