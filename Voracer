@@ -1,10 +1,11 @@
 {
     "source": {
         "directory": "src",
-        "entry": "vorac.v"
+        "entry": "main.v"
     },
     "binaries": {
-        "target": "bin"
+        "target": "bin",
+        "output": "vorac"
     },
     "environment": {
         "version": ["0.0.12", "0.0.12"],

@@ -1,6 +1,2 @@
-
-# .v4p backup files
-*~.xml
-
-# Dynamic plugins .dll
+# Vorac .gitignore (copy this if you're settuping a Vorac project)
 bin/
