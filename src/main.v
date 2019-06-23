@@ -41,7 +41,9 @@ fn main() {
     
     if build.compiler == 'vc' {
         println('[VORAC] Building ' + build.entry_point + '..')
-        out := os.system('v -o ' + build.target + '/' + build.output + ' ' + build.source_directory + '/' + build.entry_point)
+        cmd := 'v -o ' + build.target + '/' + build.output + ' ' + build.source_directory + '/' + build.entry_point
+        println(cmd)
+        out := os.system(cmd)
         print(out)
         //binName := build.entry_point.substr(0, build.entry_point.)
         //bin_content = os.read_file(build.source_directory + '/' + build.entry_point)
