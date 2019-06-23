@@ -30,8 +30,6 @@ fn read_build_file() BuildFile {
 }
 
 fn main() {
-    println('(c) Randy RAMDE 2019')
-    println('\tVorac Build System 1.0')
     if !os.file_exists('Voracer') {
         println('[ERROR] Could not find \'Voracer\'')
         exit(1)

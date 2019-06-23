@@ -5,4 +5,3 @@ v -o vorac src/main.v
 # Build itself
 echo Re-building Vorac..
 ./vorac
-echo Have fun with Vorac!
