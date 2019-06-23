@@ -13,7 +13,7 @@ vorac
 ```
 Which is a gain of 8 characters (depending on binary name length) xD
 
-## Advantages
+## Advantages
 Allow being lazy and free some characters
 ## Questions'n'Answers
 - Q: Why not use a Makefile?
