@@ -23,12 +23,14 @@ struct BuildFile {
     environment BuildFileEnvironment
 }
 
-fn read_build_file() BuildFile {
-    s := os.read_file('Voracer')
+fn read_build_file() ?BuildFile {
+    s := os.read_file('Voracer') or {
+        return error('Voracer not found')
+    }
     mut build := json.decode(BuildFile, s) or {
         eprintln('[ERROR] Could not parse JSON')
         exit(1)
-        return BuildFile{}
+        return error('Could not parse JSON')
     }
     return build
 }
@@ -39,7 +41,9 @@ fn main() {
         exit(1)
     }
     println('[VORAC] Parsing \'Voracer\'')
-    mut build := read_build_file()
+    mut build := read_build_file() or {
+        return
+    }
     println('[VORAC] Building \'' + build.source.directory + '\'..')
     println('        Compiler: ' + build.environment.compiler)
     
@@ -47,7 +51,7 @@ fn main() {
         println('[VORAC] Building ' + build.source.entry + '..')
         cmd := 'v -o ' + build.binaries.target + '/' + build.binaries.output + ' ' + build.source.directory + '/' + build.source.entry
         println(cmd)
-        out := os.system(cmd)
+        out := os.exec(cmd)
         println(out)
     } else {
         eprintln('[ERROR] Unknown compiler ' + build.environment.compiler)
