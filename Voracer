@@ -5,7 +5,8 @@
     },
     "binaries": {
         "target": "bin",
-        "output": "vorac"
+        "output": "vorac",
+        "build": "executable"
     },
     "environment": {
         "version": ["0.1", "0.2"],

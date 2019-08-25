@@ -10,6 +10,7 @@ struct BuildFileSource {
 struct BuildFileBinaries {
     target string
     output string
+    build string
 }
 
 struct BuildFileEnvironment {
@@ -62,14 +63,20 @@ fn main() {
     build := read_build_file() or {
         return
     }
-    println('    Building \'' + build.source.directory + '\'..')
+    println('    Building ' + build.binaries.build + ' \'' + build.source.directory + '\'..')
     println('    Compiler: ' + build.environment.compiler)
     
     if build.environment.compiler == 'vc' {
         version := get_version()
         println('    Version: ' + version)
         println('Building ' + build.source.entry + '..')
-        cmd := 'v -o ' + build.binaries.target + '/' + build.binaries.output + ' ' + build.source.directory + '/' + build.source.entry
+        mut cmd := ''
+        if (build.binaries.build == 'executable') {
+            cmd = 'v -o ' + build.binaries.target + '/' + build.binaries.output + ' ' + build.source.directory + '/' + build.source.entry
+        }
+        else if (build.binaries.build == 'library') {
+            cmd = 'v -lib -o ' + build.binaries.target + '/' + build.binaries.output + ' ' + build.source.directory + '/' + build.source.entry
+        }
         println(cmd)
         out := os.exec(cmd) or {
             exit(1)
