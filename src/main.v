@@ -63,7 +63,7 @@ fn main() {
     build := read_build_file() or {
         return
     }
-    println('    Building ' + build.binaries.build + ' \'' + build.source.directory + '\'..')
+    println('    Building ' + build.binaries.build + ' from \'' + build.source.directory + '\'..')
     println('    Compiler: ' + build.environment.compiler)
     
     if build.environment.compiler == 'vc' {

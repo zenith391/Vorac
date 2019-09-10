@@ -10,5 +10,5 @@ sh build.sh
 cd ..
 cp Vorac/vorac vorac
 cp Vorac/Voracer Voracer
-rm -f -r Vorac
+rm -rf Vorac
 echo All you have to do is create your Voracer file.

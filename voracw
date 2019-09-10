@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ ! -e ".vorac-wrapper" ] ; then
+	echo Retrieving Vorac..
+	mkdir .vorac-wrapper
+	git clone https://github.com/zenith391/Vorac
+	cd Vorac
+	mkdir bin
+	sh build.sh
+
+	cd ..
+	cp Vorac/vorac .vorac-wrapper/vorac
+	rm -rf Vorac
+fi
+
+.vorac-wrapper/vorac $@

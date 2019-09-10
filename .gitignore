@@ -1,2 +1,3 @@
 # Vorac .gitignore (copy this if you're settuping a Vorac project)
 bin/
+.vorac-wrapper/

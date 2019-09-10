@@ -5,6 +5,5 @@ cd ~
 echo Cloning V..
 git clone https://github.com/vlang/v && cd v
 make
-rm v.c
 # Now build Vorac
 sh build.sh
